@@ -288,8 +288,33 @@ function reverseString(str) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  // return str
+  //   .split('')
+  //   .sort((a, b) => a.localeCompare(b))
+  //   .join('');
+
+  const findPositionToPaste = (s, char) => {
+    for (let i = 0; i < s.length; i += 1) {
+      if (char.localeCompare(s[i]) === -1) return i;
+    }
+
+    return -1;
+  };
+
+  let result = '';
+
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
+    const indToPaste = findPositionToPaste(result, char);
+
+    result =
+      indToPaste === -1
+        ? result + char
+        : `${result.slice(0, indToPaste)}${char}${result.slice(indToPaste)}`;
+  }
+
+  return result;
 }
 
 /**
